@@ -1,19 +1,19 @@
 from bases_scripts.bd_biblioteca import DB_FILE, sqlite3
 
 
-def add_user(nome, email,username, senha, rua: str | None = None, numero: int | None = None, bairro: str | None = None):
+
+def add_user(nome, username, email, senha, rua: str | None = None, numero: int | None = None, bairro: str | None = None):
     connection = sqlite3.connect(DB_FILE)
     cursor = connection.cursor()
 
-    valor = (f'INSERT INTO usuarios (nome, email, rua, numero, bairro)'
-                f'VALUES (:nome, :email, :username, :senha, :rua, :numero, :bairro)')
+    valor = (f'INSERT INTO usuarios (nome, email, rua, numero, bairro, username, senha)'
+                f'VALUES (:nome, :email, :rua, :numero, :bairro, :username, :senha)')
     
-    
-    
+
     connection.execute(
         valor,
         {
-            'nome': nome, 'email': email, 'username': username, 'senha':senha, 'rua': rua, 'numero': numero, 'bairro': bairro
+            'nome': nome, 'username': username, 'email':email , 'senha': senha, 'rua':rua, 'numero':numero, 'bairro': bairro
         }
     )
     connection.commit()
@@ -77,31 +77,29 @@ def login_user(usuario, senha):
 
     user = cursor.fetchall()
 
+
     for linha in user:
         _id,id_usuario, name, senha_user = linha
+        
         
         if usuario == name and senha == senha_user:
             print('Login Realizado!')
             break
-        else:
+        elif usuario != name and senha != senha_user:
             print('Usuario invalido!')
             break
 
     cursor.close()
     connection.close()
 
-def create_user(id_user, usuario, senha):
+def create_user():
     connection = sqlite3.connect(DB_FILE)
     cursor = connection.cursor()
 
-    valor = (f'INSERT INTO login_user (id_usuario, username, senha)\
-             VALUES(:id_usuario, :username, :senha)')
+    valor = ('INSERT into login_user (id_usuario ,username, senha)\
+        select id_usuario, username, senha from usuarios WHERE id_usuario = id_usuario ORDER BY id_usuario DESC LIMIT 1')
     
-    cursor.execute(valor,
-                   {
-                        'id_usuario': id_user, 'username': usuario, 'senha': senha
-                   }
-    )
+    cursor.execute(valor)
     connection.commit()
 
     cursor.close()

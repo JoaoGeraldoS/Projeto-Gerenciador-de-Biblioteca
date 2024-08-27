@@ -42,7 +42,7 @@ class Usuario:
         self.senha = senha
 
     def add_user(self):
-        db_u.add_user(self.nome, self.email, self.rua, self.numero, self.bairro)
+        db_u.add_user(self.nome, self.username, self.email, self.senha ,self.rua, self.numero, self.bairro)
     
     def read_user(self):
         db_u.read_users()
@@ -56,8 +56,8 @@ class Usuario:
     def login_user(self, usuario, senha):
         db_u.login_user(usuario, senha)
     
-    def create_user(self, id_user, username, senha):
-        db_u.create_user(id_user, username, senha)
+    def create_user(self):
+        db_u.create_user()
 
 
 

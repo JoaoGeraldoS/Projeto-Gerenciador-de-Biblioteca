@@ -6,15 +6,13 @@ emprestimo = Emprestimo(None, None, '', '')
 admin = Admin('admin', 'admin')
 
 
-emprestimo.read_register()
-
 def usuarios():
     user = input('Digite seu usuario: ')
     senha = input('Digite sua senha: ')
 
     usuario.login_user(user, senha)
 
-# usuarios()
+usuarios()
 
 def create_user():
     nome = input('Digite seu nome: ')
@@ -27,8 +25,9 @@ def create_user():
 
     usuario = Usuario(nome, email, rua, numero, bairro, username, senha)
     usuario.add_user()
+    usuario.create_user()
 
-    
+# create_user()
 
 # while True:
 #     print('Bem vindo a biblioteca!\n'.upper())
