@@ -1,5 +1,4 @@
-from bases_scripts.bd_biblioteca import DB_FILE, sqlite3
-
+from .bd_biblioteca import DB_FILE, sqlite3
 
 
 def add_user(nome, username, email, senha, rua: str | None = None, numero: int | None = None, bairro: str | None = None):
@@ -72,22 +71,24 @@ def login_user(usuario, senha):
     cursor = connection.cursor()
 
     cursor.execute(
-        'select * from login_user'
+        f'select * from login_user where username = "{usuario}" and senha = "{senha}"'
     )
 
     user = cursor.fetchall()
 
+    if len(user) == 0: 
+        print('Usuario e Senha invalidos ou inexistentes') 
+        return
+    
 
     for linha in user:
         _id,id_usuario, name, senha_user = linha
         
-        
-        if usuario == name and senha == senha_user:
+        if name and senha_user:
             print('Login Realizado!')
-            break
-        elif usuario != name and senha != senha_user:
-            print('Usuario invalido!')
-            break
+            return 'Login Realizado'
+            
+        
 
     cursor.close()
     connection.close()

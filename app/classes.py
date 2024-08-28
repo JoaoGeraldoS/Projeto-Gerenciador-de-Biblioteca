@@ -54,7 +54,8 @@ class Usuario:
         db_u.remove_user(id)
     
     def login_user(self, usuario, senha):
-        db_u.login_user(usuario, senha)
+        teste = db_u.login_user(usuario, senha)
+        return teste
     
     def create_user(self):
         db_u.create_user()
@@ -96,3 +97,5 @@ class Admin:
     
     def login_admin(self, user, password):
         admin.login_admin(user, password)
+    
+    

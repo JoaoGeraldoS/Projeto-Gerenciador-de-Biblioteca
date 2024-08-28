@@ -1,3 +1,5 @@
+from time import sleep
+
 from classes import Biblioteca, Usuario, Emprestimo, Admin
 
 biblioteca = Biblioteca('', '', '', None)
@@ -10,9 +12,24 @@ def usuarios():
     user = input('Digite seu usuario: ')
     senha = input('Digite sua senha: ')
 
-    usuario.login_user(user, senha)
+    teste =  usuario.login_user(user, senha)
 
-usuarios()
+    if teste == 'Login Realizado':
+        print('Tudo certo\n')
+        sleep(2)
+        biblioteca.read_book()
+        solicitar()
+
+        
+        
+def solicitar():
+    livro = input('Digite nome do livro: ')
+    biblioteca.read_book(livro)
+
+    emprestimos = input("Deseja fazer o emprestimo do livro: ")
+    if emprestimos == 's':
+        emprestimo.read_register()
+
 
 def create_user():
     nome = input('Digite seu nome: ')
@@ -27,19 +44,18 @@ def create_user():
     usuario.add_user()
     usuario.create_user()
 
-# create_user()
 
-# while True:
-#     print('Bem vindo a biblioteca!\n'.upper())
-#     print('Faça Login [1]/ Cadastre-se [2]')
+while True:
+    print('Bem vindo a biblioteca!\n'.upper())
+    print('Faça Login [1]/ Cadastre-se [2]')
 
-#     entrada = input('Digite a opção: ')
+    entrada = input('Digite a opção: ')
 
-#     match entrada:
-#         case '1':
-#             usuarios()
-#         case '2':
-#             create_user()
+    match entrada:
+        case '1':
+            usuarios()
+        case '2':
+            create_user()
 
 
 
